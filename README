@@ -1,96 +1,34 @@
-Freescale's Community Yocto BSP
-===============================
+CÔNG CỤ BIÊN DỊCH HỆ ĐIỀU HÀNH CHO ESYS-6ULL BOARD
+==================================================
 
-To get the BSP you need to have `repo` installed.
+Đầu tiên, cài phần mềm 'repo' trên host
 
-Install the `repo` utility: (only need to do this once):
+Các bước cài đặt 'repo': (thực hiện nếu trên host chưa có 'repo'):
 --------------------------------------------------------
-$: mkdir ~/bin
-$: curl http://commondatastorage.googleapis.com/git-repo-downloads/repo  > ~/bin/repo
-$: chmod a+x ~/bin/repo
-$: PATH=${PATH}:~/bin
+$: sudo apt-get install repo
 
-
-Download the Yocto Project Environment into your directory:
+Tải công cụ biên dịch xuống host:
 -----------------------------------------------------------
-$: mkdir fsl-arm-yocto-bsp
-$: cd fsl-arm-yocto-bsp
-$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth [-m <manifest>]
-$: repo sync
+$ mkdir esys-6ull-os
+$ cd esys-6ull-os
+$ repo init -u https://github.com/systechvn/esys-6ull-os.git -b esys-6ull
+$ repo sync
 
-<manifest>                      Description
-default.xml                     The latest BSP GA release [1]
-                                (this is the default value)
-imx-<version>.xml               BSP GA release
-imx-<version>-<demo>-demo.xml   Demo [2]
+Nếu có lỗi, xóa thư mục .repo và  chạy lại lệnh 'repo init ....'.
 
-[1] When the default manifest is used, the project environment can be updated
-to the latest release via repo sync.
-[2] Demos are built and minimally tested but are otherwise not supported.
 
-For errors with repo init, remove the .repo directory and run repo init again.
-
-See ChangeLog for description of patch releases and tags for each update.
-
-Examples
---------
-To download the 4.1.15-2.0.0_ga release
-repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15-2.0.0.xml
-
-To download the 4.1.15-2.0.1 patch release
-repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15-2.0.1.xml
-
-To download the 4.1.15-2.0.2 patch release
-repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15-2.0.2.xml
-
-To download the 4.1.15-2.0.3 patch release
-repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15-2.0.3.xml
-
-To download the 4.1.15-2.1.0 i.MX 6SLL GA release
-repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15-2.1.0.xml
-
-To download the 4.1.30-7ulp_alpha release
-repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.30-7ulp_alpha.xml
-
-Setup the build folder for a BSP release:
+CÀI ĐẶT MÔI TRƯỜNG BIÊN DỊCH
 -----------------------------------------
-Note: The remaining instructions are for setting up a BSP release only. For setting
-up a demo, please see fsl-arm-yocto-bsp/README-<demo> for further instructions.
-
-$: [MACHINE=<machine>] [DISTRO=fsl-imx-<backend>] source ./fsl-setup-release.sh -b bld-<backend>
-
-<machine> defaults to imx6qsabresd
-
-<backend>   Graphics backend type
-x11         X11 (this is the default if DISTRO is unspecified)
-wayland     Wayland
-xwayland    Wayland with XWayland support
-fb          Framebuffer
-
-Note DirectFB is not supported in 4.1.15 release.
-
-Note if the poky community distro is used then build breaks will happen with some
-components using our meta-fsl-bsp-release layer.
-
-Examples:
-
-- Setup for X11.
-$: MACHINE=imx6qsabresd DISTRO=fsl-imx-x11 source ./fsl-setup-release.sh -b bld-x11
-
-- Setup for Wayland.
-$: MACHINE=imx6qsabresd DISTRO=fsl-imx-wayland source ./fsl-setup-release.sh -b bld-wayland
-
-- Setup for Wayland and X11.
-$: MACHINE=imx6qsabresd DISTRO=fsl-imx-xwayland source ./fsl-setup-release.sh -b bld-xwayland
-
-- Setup for Frame Buffer.
-$: MACHINE=imx6qsabresd DISTRO=fsl-imx-fb source ./fsl-setup-release.sh -b bld-fb
+$ DISTRO=fsl-imx-x11 MACHINE=imx6ull14x14evk source fsl-setup-release.sh -b  esys-6ull-x11 -m imx-4.1.15-2.0.3.xml
 
 
-Build an image:
+BIÊN DỊCH IMAGE
 ---------------
-bitbake <image recipe>
+Image không Qt:
+$ bitbake fsl-image-validation-imx
 
-Some image recipes:
-fsl-image-gui - full image with demos and tests used for testing with graphics, no QT.
-fsl-image-qt5 - fsl-image-gui with QT 5.5.
+Image có Qt:
+$ bitbake fsl-image-validation-qt5-imx
+
+Thêm thông tin, xem tài liệu hướng dẫn biên dịch hệ điều hành cho bo mạch esys-6ull-os, tại địa chỉ:
+http://esystech.vn/esys-6ull/docs/...

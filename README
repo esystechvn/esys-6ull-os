@@ -1,7 +1,7 @@
 CÔNG CỤ BIÊN DỊCH HỆ ĐIỀU HÀNH CHO ESYS-6ULL BOARD
 ==================================================
 
-Đầu tiên, cài phần mềm 'repo' trên host
+Đầu tiên, cài phần mềm 'repo' trên host 
 
 Các bước cài đặt 'repo': (thực hiện nếu trên host chưa có 'repo'):
 --------------------------------------------------------
@@ -11,7 +11,7 @@ Tải công cụ biên dịch xuống host:
 -----------------------------------------------------------
 $ mkdir esys-6ull-os
 $ cd esys-6ull-os
-$ repo init -u https://github.com/systechvn/esys-6ull-os.git -b esys-6ull
+$ repo init -u https://github.com/esystechvn/esys-6ull-os.git -b esys-6ull
 $ repo sync
 
 Nếu có lỗi, xóa thư mục .repo và  chạy lại lệnh 'repo init ....'.

@@ -19,7 +19,7 @@ Nếu có lỗi, xóa thư mục .repo và  chạy lại lệnh 'repo init ....'
 
 CÀI ĐẶT MÔI TRƯỜNG BIÊN DỊCH
 -----------------------------------------
-$ DISTRO=fsl-imx-x11 MACHINE=imx6ull14x14evk source fsl-setup-release.sh -b  esys-6ull-x11
+$ DISTRO=fsl-imx-x11 MACHINE=imx6ull14x14evk source fsl-setup-release.sh -b  imx-rk42.xml
 
 
 BIÊN DỊCH IMAGE
